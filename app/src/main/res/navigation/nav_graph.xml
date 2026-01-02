@@ -10,8 +10,58 @@
         android:label="Home" />
 
     <fragment
-        android:id="@+id/detailFragment"
+        android:id="@+id/contentsFragment"
+        android:name="com.example.perdelium.ui.fragments.ContentsFragment"
+        android:label="Contents" />
+
+    <fragment
+        android:id="@+id/addContentFragment"
+        android:name="com.example.perdelium.ui.fragments.AddContentFragment"
+        android:label="Add Content" />
+
+    <fragment
+        android:id="@+id/profileFragment"
         android:name="com.example.perdelium.ui.fragments.ProfileFragment"
-        android:label="Detail" />
+        android:label="Profile" />
+
+    <fragment
+        android:id="@+id/contentDetailFragment"
+        android:name="com.example.perdelium.ui.fragments.ContentDetailFragment"
+        android:label="Content Detail" />
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.perdelium.ui.fragments.LoginFragment"
+        android:label="Login" />
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.example.perdelium.ui.fragments.RegisterFragment"
+        android:label="Register" />
+
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.perdelium.ui.fragments.EditProfileFragment"
+        android:label="Edit Profile" />
+
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.example.perdelium.ui.fragments.FavoritesFragment"
+        android:label="Favorites" />
+
+    <fragment
+        android:id="@+id/myContentsFragment"
+        android:name="com.example.perdelium.ui.fragments.MyContentsFragment"
+        android:label="My Contents" />
+
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.example.perdelium.ui.fragments.UserProfileFragment"
+        android:label="User Profile" />
+
+    <fragment
+        android:id="@+id/feedBackFragment"
+        android:name="com.example.perdelium.ui.fragments.FeedBackFragment"
+        android:label="Feedback" />
 
 </navigation>

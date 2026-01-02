@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 import android.util.Log;
 import java.io.IOException;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import androidx.fragment.app.Fragment;
 
@@ -98,10 +100,9 @@ public class LoginFragment extends Fragment {
     }
 
     private void showHomeScreen() {
-        // Ana ekran veya navigasyon işlemi
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragmentContainer, new HomeFragment()) // Ana ekran fragment'ı
-                .addToBackStack(null) // Kullanıcı geri tuşuna basınca önceki fragment'e dönmesini sağlamak
-                .commit();
+        NavController navController =
+                NavHostFragment.findNavController(LoginFragment.this);
+
+        navController.navigate(R.id.homeFragment);
     }
 }

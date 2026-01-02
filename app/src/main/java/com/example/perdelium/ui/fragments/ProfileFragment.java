@@ -9,9 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
+
 
 import com.example.perdelium.model.User;
-import com.example.perdelium.ui.MainActivity;
 import com.example.perdelium.R;
 import com.example.perdelium.utils.SharedPreferencesUtil;
 
@@ -19,6 +21,7 @@ public class ProfileFragment extends Fragment {
 
     // Sınıf seviyesinde TextView tanımladık
     private TextView TextUserName, TextEmail, TextName, TextSurName;
+    private NavController navController;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -37,18 +40,6 @@ public class ProfileFragment extends Fragment {
         TextName = view.findViewById(R.id.name);
         TextSurName = view.findViewById(R.id.surname);
 
-        // Kullanıcının giriş yapıp yapmadığını kontrol et
-        if (!SharedPreferencesUtil.isLoggedIn(requireContext())) {
-            // Eğer giriş yapılmamışsa, LoginFragment'a yönlendirelim
-            getActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentContainer, new LoginFragment()) // LoginFragment'a yönlendir
-                    .addToBackStack(null)
-                    .commit();
-        } else {
-            // Giriş yapılmış, profil bilgilerini göster
-            showProfileInfo(view);
-        }
-
         Button btnEdit = view.findViewById(R.id.editBtn);
         Button btnFav = view.findViewById(R.id.favoriteBtn);
         Button btnLogin = view.findViewById(R.id.LoginBtn);
@@ -57,13 +48,24 @@ public class ProfileFragment extends Fragment {
         Button btnMyContents = view.findViewById(R.id.MyContentsBtn);
         Button btnUProf = view.findViewById(R.id.UserProfileBtn);
 
-        btnEdit.setOnClickListener(v -> GoToFrag(new EditProfileFragment()));
-        btnFav.setOnClickListener(v -> GoToFrag(new FavoritesFragment()));
-        btnLogin.setOnClickListener(v -> GoToFrag(new LoginFragment()));
-        btnRegister.setOnClickListener(v -> GoToFrag(new RegisterFragment()));
-        btnFeedBack.setOnClickListener(v -> GoToFrag(new FeedBackFragment()));
-        btnMyContents.setOnClickListener(v -> GoToFrag(new MyContentsFragment()));
-        btnUProf.setOnClickListener(v -> GoToFrag(new UserProfileFragment()));
+        navController =
+                NavHostFragment.findNavController(ProfileFragment.this);
+
+
+        if (!SharedPreferencesUtil.isLoggedIn(requireContext())) {
+            navController.navigate(R.id.loginFragment);
+            return view;
+        }
+
+        showProfileInfo(view);
+
+        btnEdit.setOnClickListener(v -> navController.navigate(R.id.editProfileFragment));
+        btnFav.setOnClickListener(v -> navController.navigate(R.id.favoritesFragment));
+        btnLogin.setOnClickListener(v -> navController.navigate(R.id.loginFragment));
+        btnRegister.setOnClickListener(v -> navController.navigate(R.id.registerFragment));
+        btnFeedBack.setOnClickListener(v -> navController.navigate(R.id.feedBackFragment));
+        btnMyContents.setOnClickListener(v -> navController.navigate(R.id.myContentsFragment));
+        btnUProf.setOnClickListener(v -> navController.navigate(R.id.userProfileFragment));
 
         return view;
     }
@@ -73,12 +75,9 @@ public class ProfileFragment extends Fragment {
         User user = SharedPreferencesUtil.getUserInfo(requireContext());
 
         if (user == null || user.getUsername() == null) {
-            // Eğer kullanıcı bilgileri eksik veya null ise, LoginFragment'a yönlendirelim
-            getActivity().getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragmentContainer, new LoginFragment()) // LoginFragment'a yönlendir
-                    .addToBackStack(null)
-                    .commit();
-        } else {
+            navController.navigate(R.id.loginFragment);
+            return;
+        }else {
             // Kullanıcı bilgilerini göster
             String username = user.getUsername();
             String name = user.getName();
@@ -93,9 +92,5 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    private void GoToFrag(Fragment fragment) {
-        if (getActivity() instanceof MainActivity) {
-            ((MainActivity) getActivity()).loadFragment(fragment);
-        }
-    }
+
 }

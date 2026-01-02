@@ -18,9 +18,10 @@ import com.example.perdelium.api.ApiClient;
 import com.example.perdelium.api.ApiService;
 import com.example.perdelium.model.Content;
 import com.example.perdelium.model.ContentResponse;
-import com.example.perdelium.ui.MainActivity;
 import com.example.perdelium.ui.adapter.ContentAdapter;
 import com.example.perdelium.R;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,13 +61,15 @@ public class ContentsFragment extends Fragment {
 
         Button btnContDet = view.findViewById(R.id.ContentDetailBtn);
 
-        btnContDet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onClick: Navigating to ContentDetailFragment");  // Log: Butona tıklanmış
-                GoToFrag(new ContentDetailFragment());
-            }
+        btnContDet.setOnClickListener(v -> {
+            Log.d(TAG, "onClick: Navigating to ContentDetailFragment");
+
+            NavController navController =
+                    NavHostFragment.findNavController(ContentsFragment.this);
+
+            navController.navigate(R.id.contentDetailFragment);
         });
+
 
         return view;
     }
@@ -100,12 +103,5 @@ public class ContentsFragment extends Fragment {
                 Toast.makeText(getContext(), "Bağlantı hatası: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void GoToFrag(Fragment fragment) {
-        if (getActivity() instanceof MainActivity) {
-            Log.d(TAG, "GoToFrag: Navigating to " + fragment.getClass().getSimpleName());  // Log: Fragment'e geçiş yapılıyor
-            ((MainActivity) getActivity()).loadFragment(fragment);
-        }
     }
 }

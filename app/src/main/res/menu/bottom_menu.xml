@@ -1,21 +1,23 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_home"
-        android:title="Ana Sayfa"
-        android:icon="@drawable/ic_home"/>
+        android:id="@+id/homeFragment"
+        android:title="Anasayfa"
+        android:icon="@drawable/ic_home" />
 
     <item
-        android:id="@+id/menu_contents"
+        android:id="@+id/contentsFragment"
         android:title="Eserler"
-        android:icon="@drawable/ic_contents"/>
+        android:icon="@drawable/ic_contents" />
 
     <item
-        android:id="@+id/menu_profile"
-        android:title="Profil"
-        android:icon="@drawable/ic_profile"/>
-    <item
-        android:id="@+id/menu_addContent"
+        android:id="@+id/addContentFragment"
         android:title="Eser Ekle"
-        android:icon="@drawable/ic_addcontent"/>
+        android:icon="@drawable/ic_addcontent" />
+
+    <item
+        android:id="@+id/profileFragment"
+        android:title="Profil"
+        android:icon="@drawable/ic_profile" />
+
 </menu>
