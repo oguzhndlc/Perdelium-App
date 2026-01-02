@@ -1,26 +1,26 @@
 package com.example.perdelium.ui.fragments;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 
-
-import com.example.perdelium.model.User;
 import com.example.perdelium.R;
+import com.example.perdelium.model.User;
 import com.example.perdelium.utils.SharedPreferencesUtil;
 
 public class ProfileFragment extends Fragment {
 
-    // Sınıf seviyesinde TextView tanımladık
-    private TextView TextUserName, TextEmail, TextName, TextSurName;
+    private TextView textProfile;
     private NavController navController;
 
     public ProfileFragment() {
@@ -29,68 +29,67 @@ public class ProfileFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+    public View onCreateView(
+            @NonNull LayoutInflater inflater,
+            @Nullable ViewGroup container,
+            @Nullable Bundle savedInstanceState
+    ) {
+        return inflater.inflate(R.layout.fragment_profile, container, false);
+    }
 
-        // TextView'ları bağlama
-        TextUserName = view.findViewById(R.id.username);
-        TextEmail = view.findViewById(R.id.email);
-        TextName = view.findViewById(R.id.name);
-        TextSurName = view.findViewById(R.id.surname);
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        textProfile = view.findViewById(R.id.profileInfo);
 
         Button btnEdit = view.findViewById(R.id.editBtn);
         Button btnFav = view.findViewById(R.id.favoriteBtn);
-        Button btnLogin = view.findViewById(R.id.LoginBtn);
-        Button btnRegister = view.findViewById(R.id.RegisterBtn);
-        Button btnFeedBack = view.findViewById(R.id.FeedBackBtn);
         Button btnMyContents = view.findViewById(R.id.MyContentsBtn);
-        Button btnUProf = view.findViewById(R.id.UserProfileBtn);
+        Button btnLogout = view.findViewById(R.id.LogoutBtn);
 
-        navController =
-                NavHostFragment.findNavController(ProfileFragment.this);
+        navController = NavHostFragment.findNavController(this);
 
-
+        // 🔐 Login kontrolü
         if (!SharedPreferencesUtil.isLoggedIn(requireContext())) {
             navController.navigate(R.id.loginFragment);
-            return view;
+            return;
         }
 
-        showProfileInfo(view);
+        showProfileInfo();
 
-        btnEdit.setOnClickListener(v -> navController.navigate(R.id.editProfileFragment));
-        btnFav.setOnClickListener(v -> navController.navigate(R.id.favoritesFragment));
-        btnLogin.setOnClickListener(v -> navController.navigate(R.id.loginFragment));
-        btnRegister.setOnClickListener(v -> navController.navigate(R.id.registerFragment));
-        btnFeedBack.setOnClickListener(v -> navController.navigate(R.id.feedBackFragment));
-        btnMyContents.setOnClickListener(v -> navController.navigate(R.id.myContentsFragment));
-        btnUProf.setOnClickListener(v -> navController.navigate(R.id.userProfileFragment));
+        btnEdit.setOnClickListener(v ->
+                navController.navigate(R.id.editProfileFragment));
 
-        return view;
+        btnFav.setOnClickListener(v ->
+                navController.navigate(R.id.favoritesFragment));
+
+        btnMyContents.setOnClickListener(v ->
+                navController.navigate(R.id.myContentsFragment));
+
+        btnLogout.setOnClickListener(v -> logout());
     }
 
-    private void showProfileInfo(View view) {
-        // Kullanıcı bilgilerini SharedPreferences'tan al
+    private void logout() {
+        // 1️⃣ Kullanıcı bilgilerini sil
+        SharedPreferencesUtil.clearUserInfo(requireContext());
+
+        // 2️⃣ Backstack temizle + Login
+        NavOptions navOptions = new NavOptions.Builder()
+                .setPopUpTo(R.id.nav_graph, true)
+                .build();
+
+        navController.navigate(R.id.loginFragment, null, navOptions);
+    }
+
+    private void showProfileInfo() {
         User user = SharedPreferencesUtil.getUserInfo(requireContext());
 
-        if (user == null || user.getUsername() == null) {
+        if (user == null) {
             navController.navigate(R.id.loginFragment);
             return;
-        }else {
-            // Kullanıcı bilgilerini göster
-            String username = user.getUsername();
-            String name = user.getName();
-            String surname = user.getSurname();
-            String email = user.getEmail();
-
-            // TextView'ları güncelle
-            TextUserName.setText(username);
-            TextName.setText(name);
-            TextEmail.setText(email);
-            TextSurName.setText(surname);
         }
+
+        textProfile.setText(user.getUsername());
     }
-
-
 }

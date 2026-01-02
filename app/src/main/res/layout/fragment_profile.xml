@@ -1,72 +1,78 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:gravity="center"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Profil Sayfası"
-        android:textSize="22sp" />
-    <TextView
-        android:id="@+id/username"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Profil Sayfası"
-        android:textSize="22sp" />
-    <TextView
-        android:id="@+id/email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Profil Sayfası"
-        android:textSize="22sp" />
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Profil Sayfası"
-        android:textSize="22sp" />
-    <TextView
-        android:id="@+id/surname"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Profil Sayfası"
-        android:textSize="22sp" />
-    <Button
-        android:id="@+id/editBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Düzenle"/>
-    <Button
-        android:id="@+id/favoriteBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Favoriler"/>
-    <Button
-        android:id="@+id/LoginBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Login"/>
-    <Button
-        android:id="@+id/RegisterBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Register"/>
-    <Button
-        android:id="@+id/FeedBackBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Geri Bildirim"/>
-    <Button
-        android:id="@+id/MyContentsBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Eserlerim"/>
-    <Button
-        android:id="@+id/UserProfileBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Yabancı Profil"/>
-</LinearLayout>
+        android:orientation="vertical"
+        android:padding="16dp">
 
+        <!-- PROFIL HEADER -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="16dp">
+
+            <ImageView
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:src="@drawable/ic_profile"
+                android:scaleType="centerCrop"
+                android:clipToOutline="true"/>
+
+
+            <TextView
+                android:id="@+id/profileInfo"
+                style="@style/TextTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Kullanıcı Adı" />
+        </LinearLayout>
+
+        <!-- MENU CARD -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <Button
+                    android:id="@+id/editBtn"
+                    style="@style/ProfileButton"
+                    android:text="Profili Düzenle" />
+
+                <Button
+                    android:id="@+id/favoriteBtn"
+                    style="@style/ProfileButton"
+                    android:text="Favorilerim" />
+
+                <Button
+                    android:id="@+id/MyContentsBtn"
+                    style="@style/ProfileButton"
+                    android:text="İçeriklerim" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- LOGOUT -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/LogoutBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/DangerButton"
+            android:text="Çıkış Yap"/>
+
+    </LinearLayout>
+</ScrollView>
