@@ -1,13 +1,117 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:gravity="center"
-    android:orientation="vertical"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient">
 
-    <TextView
-        android:text="Kayıt Olma Sayfası"
-        android:textSize="22sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
 
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:backgroundTint="#70564D"
+            android:textColor="@android:color/white"
+            android:text="Girişe dön"
+            android:textSize="15dp"
+            tools:ignore="TextSizeCheck" />
+
+        <EditText
+            android:layout_gravity="center"
+            android:id="@+id/etUsername"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:background="@drawable/rounded_edittext"
+            android:hint="Kullanıcı Adı"
+            android:layout_marginTop="20dp"
+            android:textColorHint="#96966E"
+            android:textStyle="bold"
+            android:minHeight="48dp" />
+
+        <EditText
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:id="@+id/etEmail"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:background="@drawable/rounded_edittext"
+            android:hint="Email"
+            android:textColorHint="#96966E"
+            android:textStyle="bold"
+            android:minHeight="48dp" />
+
+        <EditText
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:id="@+id/etName"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:background="@drawable/rounded_edittext"
+            android:hint="Ad"
+            android:minHeight="48dp"
+            android:textStyle="bold"
+            android:textColorHint="#96966E"/>
+
+        <EditText
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:id="@+id/etSurname"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:background="@drawable/rounded_edittext"
+            android:hint="Soyad"
+            android:textColorHint="#96966E"
+            android:textStyle="bold"
+            android:minHeight="48dp" />
+
+        <EditText
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:id="@+id/etPassword"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:background="@drawable/rounded_edittext"
+            android:hint="Şifre"
+            android:inputType="textPassword"
+            android:textColorHint="#96966E"
+            android:textStyle="bold"
+            android:minHeight="48dp" />
+
+        <EditText
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:id="@+id/etConfirmPassword"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:background="@drawable/rounded_edittext"
+            android:hint="Şifre Tekrar"
+            android:inputType="textPassword"
+            android:textColorHint="#96966E"
+            android:textStyle="bold"
+            android:minHeight="48dp" />
+
+        <Button
+            android:layout_gravity="center"
+            android:id="@+id/btnRegister"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:backgroundTint="@color/accent"
+            android:textColor="@android:color/white"
+            android:text="Kayıt Ol"
+            android:textSize="25dp"/>
+
+
+    </LinearLayout>
+</ScrollView>

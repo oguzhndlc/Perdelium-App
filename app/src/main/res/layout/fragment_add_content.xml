@@ -1,13 +1,101 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:gravity="center"
-    android:orientation="vertical"
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="16dp">
 
-    <TextView
-        android:text="Eser Ekleme Sayfası"
-        android:textSize="22sp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-</LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <!-- ESER ADI -->
+        <EditText
+            android:id="@+id/etTitle"
+            android:hint="Eser Adı"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- OYUN TÜRÜ -->
+        <Spinner
+            android:id="@+id/spType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- TEMA -->
+        <Spinner
+            android:id="@+id/spTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- SÜRE -->
+        <Spinner
+            android:id="@+id/spTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- YAŞ GRUBU -->
+        <Spinner
+            android:id="@+id/spAgeLimit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- OYUNCU SAYISI -->
+        <EditText
+            android:id="@+id/etCastCount"
+            android:hint="Oyuncu Sayısı"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- ERKEK / KADIN -->
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="2">
+
+            <EditText
+                android:id="@+id/etMaleCast"
+                android:hint="Erkek (E)"
+                android:inputType="number"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/etFemaleCast"
+                android:hint="Kadın (K)"
+                android:inputType="number"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
+        <!-- AÇIKLAMA -->
+        <EditText
+            android:id="@+id/etExplanation"
+            android:hint="Açıklama (max 200)"
+            android:maxLength="200"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- İÇERİK (TinyMCE KARŞILIĞI) -->
+        <EditText
+            android:id="@+id/etHtmlContent"
+            android:hint="Eser İçeriği"
+            android:minLines="6"
+            android:gravity="top"
+            android:inputType="textMultiLine"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <!-- KAYDET -->
+        <Button
+            android:id="@+id/btnAddContent"
+            android:text="Eseri Kaydet"
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+</ScrollView>

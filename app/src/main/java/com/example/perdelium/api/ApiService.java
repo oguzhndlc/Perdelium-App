@@ -2,8 +2,6 @@ package com.example.perdelium.api;
 
 import com.example.perdelium.model.*;
 
-import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -17,6 +15,11 @@ public interface ApiService {
     @POST("users/signin")
     Call<LoginResponse> login(@Body LoginRequest loginRequest);  // @Field yerine @Body kullandık
 
+    // REGISTER
+    @POST("users/signup")
+    Call<RegisterResponse> register(@Body RegisterRequest request);
+
+
     // CONTENT
     @GET("contents/all")
     Call<ContentResponse> getAllContents();
@@ -27,8 +30,15 @@ public interface ApiService {
     @GET("contents/my")
     Call<ContentResponse> getMyContents();
 
+    @GET("contents/suggestions")
+    Call<ContentResponse> getSuggestionContents();
+
+
     @POST("contents/create")
-    Call<ContentResponse> createContent(@Body ContentCreateRequest request);
+    Call<ContentResponse> createContent(@Body AddContentRequest request);
+
+    @DELETE("contents/condel/{id}")
+    Call<SimpleResponse> deleteContent(@Path("id") String id);
 
     // FAVORITE
     @GET("favorites")

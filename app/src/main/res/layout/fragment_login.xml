@@ -3,47 +3,75 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient">
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Kayıt Ol"
+        android:textSize="15dp"
+        android:textColor="@android:color/white"
+        android:backgroundTint="#70564D"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="MissingConstraints" />
+
 
     <!-- Email veya Username Input -->
     <android.widget.EditText
         android:id="@+id/etIdentifier"
-        android:layout_width="0dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:hint="Email or Username"
+        android:layout_marginTop="150dp"
+        android:background="@drawable/rounded_edittext"
+        android:hint="Eposta veya Kullanıcı Adı"
         android:importantForAccessibility="yes"
         android:inputType="textEmailAddress|textPersonName"
+        android:paddingLeft="20dp"
         android:minHeight="48dp"
+        android:textColorHint="#96966E"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Password Input -->
     <android.widget.EditText
+        android:paddingLeft="20dp"
         android:id="@+id/etPassword"
-        android:layout_width="0dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:hint="Password"
+        android:background="@drawable/rounded_edittext"
+        android:hint="Şifre"
         android:importantForAccessibility="yes"
         android:inputType="textPassword"
         android:minHeight="48dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:textColorHint="#96966E"
+        android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/etIdentifier" />
 
-    <!-- Login Button -->
-    <android.widget.Button
+    <Button
         android:id="@+id/btnLogin"
-        android:layout_width="0dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        android:text="Login"
+        android:text="Giriş Yap"
+        android:textSize="25dp"
         android:textColor="@android:color/white"
-        android:backgroundTint="@color/design_default_color_primary"
+        android:backgroundTint="@color/accent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/etPassword" />
+        app:layout_constraintTop_toBottomOf="@id/etPassword"
+        tools:ignore="MissingConstraints" />
+
+
+
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -74,6 +74,14 @@
                     android:src="@drawable/ic_favorite_outline"
                     tools:ignore="TouchTargetSizeCheck" />
 
+                <ImageView
+                    android:id="@+id/btnDelete"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="12dp"
+                    android:src="@drawable/ic_delete"
+                    android:padding="4dp"/>
+
             </LinearLayout>
 
         </LinearLayout>

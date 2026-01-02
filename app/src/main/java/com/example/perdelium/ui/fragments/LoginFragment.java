@@ -28,7 +28,7 @@ import retrofit2.Response;
 public class LoginFragment extends Fragment {
 
     private EditText etIdentifier, etPassword;
-    private Button btnLogin;
+    private Button btnLogin,btnRegister;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -43,6 +43,14 @@ public class LoginFragment extends Fragment {
         etIdentifier = view.findViewById(R.id.etIdentifier); // Email veya Username
         etPassword = view.findViewById(R.id.etPassword);
         btnLogin = view.findViewById(R.id.btnLogin);
+        btnRegister = view.findViewById(R.id.btnRegister);
+
+        btnRegister.setOnClickListener(v -> {
+            NavController navController =
+                    NavHostFragment.findNavController(LoginFragment.this);
+
+            navController.navigate(R.id.registerFragment);
+        });
 
         btnLogin.setOnClickListener(v -> {
             String identifier = etIdentifier.getText().toString();  // Email veya Username

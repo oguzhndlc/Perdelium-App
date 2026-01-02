@@ -45,22 +45,26 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(bottomNavigation, navController);
 
         // ✅ Login / Register ekranlarında bottom nav gizle
+
+        // ✅ LOGIN KONTROLÜ (NavController hazır olduktan sonra)
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
-            if (destination.getId() == R.id.loginFragment ||
-                    destination.getId() == R.id.registerFragment) {
-                bottomNavigation.setVisibility(View.GONE);
-            } else {
-                bottomNavigation.setVisibility(View.VISIBLE);
+
+            boolean isLoggedIn = SharedPreferencesUtil.isLoggedIn(this);
+
+            // 🔒 Login gerektiren fragmentlar
+            boolean requiresAuth =
+                    destination.getId() == R.id.profileFragment ||
+                            destination.getId() == R.id.addContentFragment ||
+                            destination.getId() == R.id.favoritesFragment;
+
+            if (requiresAuth && !isLoggedIn) {
+                NavOptions navOptions = new NavOptions.Builder()
+                        .setPopUpTo(R.id.loginFragment, true)
+                        .build();
+
+                controller.navigate(R.id.loginFragment, null, navOptions);
             }
         });
 
-        // ✅ LOGIN KONTROLÜ (NavController hazır olduktan sonra)
-        if (!SharedPreferencesUtil.isLoggedIn(this)) {
-            NavOptions navOptions = new NavOptions.Builder()
-                    .setPopUpTo(R.id.nav_graph, true)
-                    .build();
-
-            navController.navigate(R.id.loginFragment, null, navOptions);
-        }
     }
 }

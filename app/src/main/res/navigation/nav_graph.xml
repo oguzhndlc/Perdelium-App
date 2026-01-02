@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.perdelium.ui.fragments.HomeFragment"
-        android:label="Home" />
+        android:label="HomeFragment"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_homeFragment_to_contentDetailFragment"
+            app:destination="@id/contentDetailFragment" />
+
+    </fragment>
+
 
     <fragment
         android:id="@+id/contentsFragment"
         android:name="com.example.perdelium.ui.fragments.ContentsFragment"
-        android:label="Contents" />
+        android:label="Contents">
+
+        <action
+            android:id="@+id/action_contentsFragment_to_contentDetailFragment"
+            app:destination="@id/contentDetailFragment" />
+    </fragment>
+
 
     <fragment
         android:id="@+id/addContentFragment"
@@ -27,7 +42,13 @@
     <fragment
         android:id="@+id/contentDetailFragment"
         android:name="com.example.perdelium.ui.fragments.ContentDetailFragment"
-        android:label="Content Detail" />
+        android:label="Eser Detay">
+
+        <argument
+            android:name="contentId"
+            app:argType="integer" />
+    </fragment>
+
 
     <fragment
         android:id="@+id/loginFragment"
@@ -47,12 +68,25 @@
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.example.perdelium.ui.fragments.FavoritesFragment"
-        android:label="Favorites" />
+        android:label="Favoriler">
+
+        <action
+            android:id="@+id/action_favoritesFragment_to_contentDetailFragment"
+            app:destination="@id/contentDetailFragment" />
+
+    </fragment>
+
 
     <fragment
         android:id="@+id/myContentsFragment"
         android:name="com.example.perdelium.ui.fragments.MyContentsFragment"
-        android:label="My Contents" />
+        android:label="Eserlerim">
+
+        <action
+            android:id="@+id/action_myContentsFragment_to_contentDetailFragment"
+            app:destination="@id/contentDetailFragment" />
+    </fragment>
+
 
     <fragment
         android:id="@+id/userProfileFragment"

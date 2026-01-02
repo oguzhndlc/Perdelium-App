@@ -2,26 +2,25 @@ package com.example.perdelium.ui.fragments;
 
 import android.os.Bundle;
 import android.util.Log;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.perdelium.R;
 import com.example.perdelium.api.ApiClient;
 import com.example.perdelium.api.ApiService;
 import com.example.perdelium.model.Content;
 import com.example.perdelium.model.ContentResponse;
 import com.example.perdelium.ui.adapter.ContentAdapter;
-import com.example.perdelium.R;
-import androidx.navigation.NavController;
-import androidx.navigation.fragment.NavHostFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,74 +33,80 @@ public class ContentsFragment extends Fragment {
 
     private RecyclerView recyclerView;
     private ContentAdapter contentAdapter;
-    private List<Content> contentList = new ArrayList<>();  // Başlangıçta boş liste
+    private List<Content> contentList = new ArrayList<>();
 
-    private static final String TAG = "ContentsFragment";  // Log tag
-
-    public ContentsFragment() {
-        // Required empty public constructor
-    }
+    private static final String TAG = "ContentsFragment";
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        Log.d(TAG, "onCreateView: Fragment layout inflating");  // Log: Fragment layout inflating
+
         View view = inflater.inflate(R.layout.fragment_contents, container, false);
 
-        recyclerView = view.findViewById(R.id.recyclerView);
+        recyclerView = view.findViewById(R.id.rvContents);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        contentAdapter = new ContentAdapter(contentList);
+        // 🔥 Adapter + Detay Click Listener
+        contentAdapter = new ContentAdapter(
+                requireContext(),
+                contentList,
+                content -> {
+
+                    NavController navController =
+                            NavHostFragment.findNavController(ContentsFragment.this);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("contentId", content.getId()); // 🔥 KRİTİK
+
+                    navController.navigate(
+                            R.id.action_contentsFragment_to_contentDetailFragment,
+                            bundle
+                    );
+                }
+        );
+
+
         recyclerView.setAdapter(contentAdapter);
 
-        Log.d(TAG, "getContents: Fetching contents from API");  // Log: API'den içerik çekilmesi
         getContents();
-
-        Button btnContDet = view.findViewById(R.id.ContentDetailBtn);
-
-        btnContDet.setOnClickListener(v -> {
-            Log.d(TAG, "onClick: Navigating to ContentDetailFragment");
-
-            NavController navController =
-                    NavHostFragment.findNavController(ContentsFragment.this);
-
-            navController.navigate(R.id.contentDetailFragment);
-        });
-
 
         return view;
     }
 
     private void getContents() {
         ApiService apiService = ApiClient.getApiService(getContext());
+
         apiService.getAllContents().enqueue(new Callback<ContentResponse>() {
             @Override
-            public void onResponse(Call<ContentResponse> call, Response<ContentResponse> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    contentList = response.body().getContents();
-                    Log.d(TAG, "onResponse: Successfully fetched " + contentList.size() + " contents");
+            public void onResponse(Call<ContentResponse> call,
+                                   Response<ContentResponse> response) {
 
-                    if (!contentList.isEmpty()) {
-                        contentAdapter.updateContentList(contentList);
-                        contentAdapter.notifyDataSetChanged();
-                    } else {
-                        Log.d(TAG, "onResponse: No contents found");
-                        Toast.makeText(getContext(), "No content available", Toast.LENGTH_SHORT).show();
-                    }
+                if (response.isSuccessful()
+                        && response.body() != null
+                        && response.body().getContents() != null) {
+
+                    contentAdapter.updateContentList(response.body().getContents());
+
+                    Log.d(TAG, "Contents loaded: "
+                            + response.body().getContents().size());
+
                 } else {
-                    Log.e(TAG, "onResponse: Failed to fetch contents. Response: " + response);
-                    Toast.makeText(getContext(), "İçerikler alınamadı", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),
+                            "İçerikler alınamadı",
+                            Toast.LENGTH_SHORT).show();
                 }
             }
 
-
             @Override
             public void onFailure(Call<ContentResponse> call, Throwable t) {
-                Log.e(TAG, "onFailure: API call failed", t);  // Log: API çağrısı başarısız oldu
-                Toast.makeText(getContext(), "Bağlantı hatası: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "API Error", t);
+                Toast.makeText(getContext(),
+                        "Bağlantı hatası",
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }
+
 }

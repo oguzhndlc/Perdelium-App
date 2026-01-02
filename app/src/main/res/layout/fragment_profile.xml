@@ -2,7 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="@drawable/bg_gradient">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,11 +19,11 @@
             android:padding="16dp">
 
             <ImageView
-                android:layout_width="96dp"
-                android:layout_height="96dp"
-                android:src="@drawable/ic_profile"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:clipToOutline="true"
                 android:scaleType="centerCrop"
-                android:clipToOutline="true"/>
+                android:src="@drawable/ic_profile" />
 
 
             <TextView
@@ -32,7 +32,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Kullanıcı Adı" />
+                android:text="Kullanıcı Adı"
+                android:textColor="#BFBBBB" />
         </LinearLayout>
 
         <!-- MENU CARD -->
@@ -47,19 +48,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:background="@drawable/bg_gradient">
 
                 <Button
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
                     android:id="@+id/editBtn"
                     style="@style/ProfileButton"
                     android:text="Profili Düzenle" />
 
                 <Button
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
                     android:id="@+id/favoriteBtn"
                     style="@style/ProfileButton"
                     android:text="Favorilerim" />
 
                 <Button
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
                     android:id="@+id/MyContentsBtn"
                     style="@style/ProfileButton"
                     android:text="İçeriklerim" />
@@ -68,6 +75,7 @@
 
         <!-- LOGOUT -->
         <com.google.android.material.button.MaterialButton
+            android:layout_margin="30dp"
             android:id="@+id/LogoutBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
